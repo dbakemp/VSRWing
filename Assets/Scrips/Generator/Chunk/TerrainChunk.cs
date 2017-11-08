@@ -15,8 +15,6 @@ namespace TerrainGenerator
 
         private NoiseProvider NoiseProvider { get; set; }
 
-        private TerrainChunkNeighborhood Neighborhood { get; set; }
-
         private float[,] Heightmap { get; set; }
 
         private object HeightmapThreadLockObject { get; set; }
@@ -27,7 +25,6 @@ namespace TerrainGenerator
 
             Settings = settings;
             NoiseProvider = noiseProvider;
-            Neighborhood = new TerrainChunkNeighborhood();
 
             Position = new Vector2i(x, z);
         }
@@ -151,93 +148,15 @@ namespace TerrainGenerator
         }
 
         #endregion
-
-        #region Chunk removal
+        
 
         public void Remove()
         {
             Heightmap = null;
             Settings = null;
-
-            if (Neighborhood.XDown != null)
-            {
-                Neighborhood.XDown.RemoveFromNeighborhood(this);
-                Neighborhood.XDown = null;
-            }
-            if (Neighborhood.XUp != null)
-            {
-                Neighborhood.XUp.RemoveFromNeighborhood(this);
-                Neighborhood.XUp = null;
-            }
-            if (Neighborhood.ZDown != null)
-            {
-                Neighborhood.ZDown.RemoveFromNeighborhood(this);
-                Neighborhood.ZDown = null;
-            }
-            if (Neighborhood.ZUp != null)
-            {
-                Neighborhood.ZUp.RemoveFromNeighborhood(this);
-                Neighborhood.ZUp = null;
-            }
-
+            
             if (Terrain != null)
                 GameObject.Destroy(Terrain.gameObject);
         }
-
-        public void RemoveFromNeighborhood(TerrainChunk chunk)
-        {
-            if (Neighborhood.XDown == chunk)
-                Neighborhood.XDown = null;
-            if (Neighborhood.XUp == chunk)
-                Neighborhood.XUp = null;
-            if (Neighborhood.ZDown == chunk)
-                Neighborhood.ZDown = null;
-            if (Neighborhood.ZUp == chunk)
-                Neighborhood.ZUp = null;
-        }
-
-        #endregion
-
-        #region Neighborhood
-
-        public void SetNeighbors(TerrainChunk chunk, TerrainNeighbor direction)
-        {
-            if (chunk != null)
-            {
-                switch (direction)
-                {
-                    case TerrainNeighbor.XUp:
-                        Neighborhood.XUp = chunk;
-                        break;
-
-                    case TerrainNeighbor.XDown:
-                        Neighborhood.XDown = chunk;
-                        break;
-
-                    case TerrainNeighbor.ZUp:
-                        Neighborhood.ZUp = chunk;
-                        break;
-
-                    case TerrainNeighbor.ZDown:
-                        Neighborhood.ZDown = chunk;
-                        break;
-                }
-            }
-        }
-
-        public void UpdateNeighbors()
-        {
-            if (Terrain != null)
-            {
-                var xDown = Neighborhood.XDown == null ? null : Neighborhood.XDown.Terrain;
-                var xUp = Neighborhood.XUp == null ? null : Neighborhood.XUp.Terrain;
-                var zDown = Neighborhood.ZDown == null ? null : Neighborhood.ZDown.Terrain;
-                var zUp = Neighborhood.ZUp == null ? null : Neighborhood.ZUp.Terrain;
-                Terrain.SetNeighbors(xDown, zUp, xUp, zDown);
-                Terrain.Flush();
-            }
-        }
-
-        #endregion
     }
 }

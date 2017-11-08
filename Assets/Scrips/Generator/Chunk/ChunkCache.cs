@@ -114,13 +114,10 @@ namespace TerrainGenerator
                     anyTerrainCreated = true;
                     if (OnChunkGenerated != null)
                         OnChunkGenerated.Invoke(ChunksBeingGenerated.Count);
-
-                    SetChunkNeighborhood(chunk.Value);
+                    
                 }
             }
-
-            if (anyTerrainCreated)
-                UpdateAllChunkNeighbors();
+            
         }
 
         private void TryToDeleteQueuedChunks()
@@ -145,45 +142,6 @@ namespace TerrainGenerator
                     ChunksToRemove.Remove(chunkPosition);
             }
         }
-
-        private void SetChunkNeighborhood(TerrainChunk chunk)
-        {
-            TerrainChunk xUp;
-            TerrainChunk xDown;
-            TerrainChunk zUp;
-            TerrainChunk zDown;
-
-            LoadedChunks.TryGetValue(new Vector2i(chunk.Position.X + 1, chunk.Position.Z), out xUp);
-            LoadedChunks.TryGetValue(new Vector2i(chunk.Position.X - 1, chunk.Position.Z), out xDown);
-            LoadedChunks.TryGetValue(new Vector2i(chunk.Position.X, chunk.Position.Z + 1), out zUp);
-            LoadedChunks.TryGetValue(new Vector2i(chunk.Position.X, chunk.Position.Z - 1), out zDown);
-
-            if (xUp != null)
-            {
-                chunk.SetNeighbors(xUp, TerrainNeighbor.XUp);
-                xUp.SetNeighbors(chunk, TerrainNeighbor.XDown);
-            }
-            if (xDown != null)
-            {
-                chunk.SetNeighbors(xDown, TerrainNeighbor.XDown);
-                xDown.SetNeighbors(chunk, TerrainNeighbor.XUp);
-            }
-            if (zUp != null)
-            {
-                chunk.SetNeighbors(zUp, TerrainNeighbor.ZUp);
-                zUp.SetNeighbors(chunk, TerrainNeighbor.ZDown);
-            }
-            if (zDown != null)
-            {
-                chunk.SetNeighbors(zDown, TerrainNeighbor.ZDown);
-                zDown.SetNeighbors(chunk, TerrainNeighbor.ZUp);
-            }
-        }
-
-        private void UpdateAllChunkNeighbors()
-        {
-            foreach (var chunkEntry in LoadedChunks)
-                chunkEntry.Value.UpdateNeighbors();
-        }
+        
     }
 }

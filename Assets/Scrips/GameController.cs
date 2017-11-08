@@ -12,5 +12,10 @@ public class GameController : MonoBehaviour
     public Transform Player;
 
     public TerrainChunkGenerator Generator;
+
+    void Start()
+    {
+        Cursor.visible = false;
+    }
     
 }

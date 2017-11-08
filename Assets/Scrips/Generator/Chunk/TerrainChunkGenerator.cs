@@ -72,30 +72,14 @@ namespace TerrainGenerator
                 addChunk(newestChunk.Position.X, newestChunk.Position.Z+1);
             }
 
-            /*List<TerrainChunk> toDelete = new List<TerrainChunk>();
-
-            foreach (TerrainChunk chunk in chunks)
+            for(int i = chunks.Count-1; i >= 0; i--)
             {
-                if (chunk.Terrain != null) {
-                    chunk.Terrain.transform.position += new Vector3(0, 0, -10);
-
-                    if (chunk.Terrain.transform.position.z <= 0 && currentChunk == chunk)
-                    {
-                        addChunk(chunk.Position.X, chunk.Position.Z + 1);
-                    }
-
-                    if (chunk.Terrain.transform.position.z <= -Settings.Length)
-                    {
-                        toDelete.Add(chunk);
-                    }
+                if (chunks[i].Terrain != null && chunks[i].Terrain.transform.position.z < -Settings.Length)
+                {
+                    chunks[i].Remove();
+                    chunks.RemoveAt(i);
                 }
             }
-
-            foreach (TerrainChunk chunk in toDelete)
-            {
-                chunks.Remove(chunk);
-                GameObject.Destroy(chunk.Terrain);
-            }*/
         }
     }
 }
