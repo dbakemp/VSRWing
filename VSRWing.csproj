@@ -81,17 +81,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scrips\BulletBehaviour.cs" />
     <Compile Include="Assets\Scrips\BulletEmitter.cs" />
+    <Compile Include="Assets\Scrips\EnemyPlane.cs" />
+    <Compile Include="Assets\Scrips\EnemyPlaneGenerator.cs" />
     <Compile Include="Assets\Scrips\FlyPhysics.cs" />
     <Compile Include="Assets\Scrips\GameController.cs" />
     <Compile Include="Assets\Scrips\Generator\Chunk\ChunkCache.cs" />
     <Compile Include="Assets\Scrips\Generator\Chunk\TerrainChunk.cs" />
     <Compile Include="Assets\Scrips\Generator\Chunk\TerrainChunkGenerator.cs" />
+    <Compile Include="Assets\Scrips\Generator\Chunk\TerrainChunkNeightborhood.cs" />
     <Compile Include="Assets\Scrips\Generator\Chunk\TerrainChunkSettings.cs" />
     <Compile Include="Assets\Scrips\Generator\Noise\INoiseProvider.cs" />
     <Compile Include="Assets\Scrips\Generator\Noise\NoiseProvider.cs" />
     <Compile Include="Assets\Scrips\Generator\Standard\Delegates.cs" />
     <Compile Include="Assets\Scrips\Generator\Standard\Vec2I.cs" />
+    <Compile Include="Assets\Scrips\HealthBar.cs" />
     <Compile Include="Assets\Scrips\LibNoise\Generator\Billow.cs" />
     <Compile Include="Assets\Scrips\LibNoise\Generator\Checker.cs" />
     <Compile Include="Assets\Scrips\LibNoise\Generator\Const.cs" />
