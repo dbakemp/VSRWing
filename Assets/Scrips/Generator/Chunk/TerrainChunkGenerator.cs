@@ -21,7 +21,7 @@ namespace TerrainGenerator
 
         int xScrollPosition = 0;
         int newScrollCounter = 0;
-
+        
         private void Awake()
         {
             Settings = new TerrainChunkSettings(129, 129, 100, 30, FlatTexture, SteepTexture, TerrainMaterial);
@@ -34,6 +34,7 @@ namespace TerrainGenerator
             addChunk(0, 4);
             addChunk(0, 5);
             addChunk(0, 6);
+
         }
 
         public void addChunk(int x, int y)
