@@ -17,7 +17,10 @@ public class HealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.position = Parent.transform.position + new Vector3(0, 0.4f, 0);
+        if(Parent != null)
+        {
+            gameObject.transform.position = Parent.transform.position + new Vector3(0, 0.4f, 0);
+        }
     }
 
     public void SetPercentage(int percentage)

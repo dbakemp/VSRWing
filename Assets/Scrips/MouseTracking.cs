@@ -9,7 +9,7 @@ public class MouseTracking : MonoBehaviour {
 	
 	void Update () {
         var pos = Input.mousePosition;
-        pos.z = 12;
+        pos.z = 24;
         pos = Camera.main.ScreenToWorldPoint(pos);
         transform.position = pos;
     }

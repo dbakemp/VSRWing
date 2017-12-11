@@ -5,18 +5,20 @@ using UnityEngine;
 public class BulletEmitter : MonoBehaviour {
     public GameObject ClippingPlane;
     public GameObject ShootingVisor;
+    public Transform BulletPrefab;
     public float ShootDelay = 0.1f;
     private float timeLastBullet = 0;
     private List<Bullet> bullets = new List<Bullet>();
+    public bool IsShooting = false;
 
 	void Start () {
 		
 	}
 	
 	void Update () {
-        if (Input.GetMouseButton(0) && ShootDelay < timeLastBullet)
+        if ((IsShooting || Input.GetMouseButton(0)) && ShootDelay < timeLastBullet)
         {
-            bullets.Add(new Bullet(transform.position, ShootingVisor.transform.position, ClippingPlane.transform.position));
+            bullets.Add(new Bullet(transform.position, ShootingVisor.transform.position, ClippingPlane.transform.position, BulletPrefab));
             timeLastBullet = 0;
         }
 
@@ -50,36 +52,20 @@ public class Bullet
     float speed = 30.0f;
     float journeyLength;
 
-    public Bullet(Vector3 origin, Vector3 visor, Vector3 end)
+    public Bullet(Vector3 origin, Vector3 visor, Vector3 end, Transform BulletPrefab)
     {
         this.originPosition = origin;
         this.visorPosition = visor;
         Vector3 directionNormal = Vector3.Normalize(visorPosition - originPosition);
         endPosition = directionNormal * (end.z - originPosition.z);
 
-        gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        gameObject = Object.Instantiate(BulletPrefab).gameObject;
+        
         gameObject.transform.position = origin;
-        gameObject.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
-        gameObject.AddComponent<TrailRenderer>();
-        gameObject.AddComponent<BulletBehaviour>();
-        gameObject.AddComponent<SphereCollider>();
-        gameObject.AddComponent<Rigidbody>();
-        gameObject.GetComponent<Rigidbody>().useGravity = false;
-        gameObject.GetComponent<MeshRenderer>().enabled = false;
-        gameObject.tag = "Bullet";
 
         startTime = Time.time;
         journeyLength = Vector3.Distance(originPosition, endPosition);
-
-
-        TrailRenderer trailRenderer = GameObject.Find("Prefabs").GetComponent<TrailRenderer>();
-        if(UnityEditorInternal.ComponentUtility.CopyComponent(trailRenderer))
-        {
-            if (UnityEditorInternal.ComponentUtility.PasteComponentValues(gameObject.GetComponent<TrailRenderer>()))
-            {
-                gameObject.GetComponent<TrailRenderer>().enabled = true;
-            }
-        }
+        
     }
 
     public void Update()
