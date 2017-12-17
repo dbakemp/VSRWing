@@ -6,17 +6,25 @@ public class BulletEmitter : MonoBehaviour {
     public GameObject ClippingPlane;
     public GameObject ShootingVisor;
     public Transform BulletPrefab;
-    public float ShootDelay = 0.1f;
+    public float ShootDelay = 0.15f;
     private float timeLastBullet = 0;
     private List<Bullet> bullets = new List<Bullet>();
     public bool IsShooting = false;
 
 	void Start () {
-		
-	}
+		if(ClippingPlane == null)
+        {
+            ClippingPlane = GameObject.Find("Plane");
+        }
+
+        if (ShootingVisor == null)
+        {
+            ShootingVisor = GameObject.Find("PlayerPlane");
+        }
+    }
 	
 	void Update () {
-        if ((IsShooting || Input.GetMouseButton(0)) && ShootDelay < timeLastBullet)
+        if ((IsShooting || Input.GetMouseButton(0)) && !GameObject.Find("Controller").GetComponent<GameController>().GameOverBool && ShootDelay < timeLastBullet)
         {
             bullets.Add(new Bullet(transform.position, ShootingVisor.transform.position, ClippingPlane.transform.position, BulletPrefab));
             timeLastBullet = 0;
@@ -27,9 +35,9 @@ public class BulletEmitter : MonoBehaviour {
             bullet.Update();
         }
 
-        if(bullets.Count > 100)
+        if(bullets.Count > 50)
         {
-            int toRemove = bullets.Count - 100;
+            int toRemove = bullets.Count - 50;
             for(int i = 0; i < toRemove; i++)
             {
                 bullets[0].Destroy();
@@ -49,7 +57,7 @@ public class Bullet
     Vector3 endPosition;
 
     float startTime;
-    float speed = 30.0f;
+    float speed = 60.0f;
     float journeyLength;
 
     public Bullet(Vector3 origin, Vector3 visor, Vector3 end, Transform BulletPrefab)

@@ -22,7 +22,7 @@ public class EnemyPlaneListener : MonoBehaviour {
     public void UseGravity()
     {
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        GetComponent<MeshCollider>().enabled = false;
+        GetComponent<BoxCollider>().enabled = false;
         GetComponent<Rigidbody>().useGravity = true;
     }
 }

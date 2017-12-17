@@ -39,33 +39,29 @@ public class EnemyPlane : MonoBehaviour
     void Start () {
         TurretA.IsShooting = true;
         origin = gameObject.transform.localPosition;
-        originOffset = origin + new Vector3(Random.Range(-10f, 10f), Random.Range(-10f, 10f), 0);
-        destinationOffset = destination + new Vector3(Random.Range(-10f, 10f), Random.Range(-10f, 10f), 0);
+        originOffset = origin + new Vector3(Random.Range(-7.5f, 7.5f), Random.Range(-2f, 7.5f), 0);
+        destinationOffset = destination + new Vector3(Random.Range(-7.5f, 7.5f), Random.Range(-2f, 7.5f), 0);
     }
 	
 	// Update is called once per frame
 	void Update () {
         if(!isDead)
         {
-            /*Vector3 jitter = new Vector3(Random.Range(-1.0f, 1.0f) / 300, Random.Range(-1.0f, 1.0f) / 300, 0);
-            addedVelocity += jitter;
-
-            addedVelocity.x += (-addedVelocity.x / 4) + (-transform.position.x / 150);
-            addedVelocity.y += (-addedVelocity.y / 4) + (-transform.position.y / 150);
-            transform.position += addedVelocity;
-
-            velocity = Vector3.zero;*/
-
             if(MoveStep <= 1.0f)
             {
                 MoveStep += 0.15f * Time.deltaTime;
                 transform.position = BezierGenerator.BezierPathCalculation(origin, originOffset, destinationOffset, destination, MoveStep);
             }
 
-            if(Vector3.Distance(transform.position, destination) <= 5f)
+            if(Vector3.Distance(transform.position, destination) <= 10f)
             {
                 remove();
             } 
+
+            if(gameObject.transform.position.z < 10)
+            {
+                Destroy(TurretA);
+            }
         }
     }
 
@@ -75,7 +71,6 @@ public class EnemyPlane : MonoBehaviour
         {
             Health -= 25;
             Destroy(collision.gameObject);
-            TurretA.IsShooting = false;
         }
     }
 
@@ -83,6 +78,8 @@ public class EnemyPlane : MonoBehaviour
     {
         if(!isDead)
         {
+            Destroy(TurretA);
+            GameObject.Find("Controller").GetComponent<GameController>().AddKill();
             EnemyPlaneListener.UseGravity();
             ParticleSystem.Play();
             DestroyObject(gameObject, ParticleSystem.main.duration);
@@ -91,6 +88,7 @@ public class EnemyPlane : MonoBehaviour
 
     private void remove()
     {
+        Destroy(TurretA);
         DestroyObject(gameObject);
     }
 }

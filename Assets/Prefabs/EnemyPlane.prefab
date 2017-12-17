@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4140351501927908}
   - component: {fileID: 33783262292440646}
   - component: {fileID: 23551446380277098}
-  - component: {fileID: 64954160581474556}
+  - component: {fileID: 65554972123578304}
   - component: {fileID: 54382725895185700}
   - component: {fileID: 114206118173621006}
   m_Layer: 0
@@ -245,8 +245,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!64 &64954160581474556
-MeshCollider:
+--- !u!65 &65554972123578304
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -255,10 +255,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 1
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 5c0fc8b80f8e51a48b5767c5a3c0b137, type: 3}
+  m_Size: {x: 15, y: 15, z: 15}
+  m_Center: {x: 0, y: 1.25, z: -1.5}
 --- !u!114 &114189082513051668
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -270,11 +268,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aafeea36a6a535142bc37815dfb0efa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClippingPlane: {fileID: 0}
-  ShootingVisor: {fileID: 0}
+  ClippingPlane: {fileID: 1339096906080874, guid: 07145f07766da9949841a5c0222893d4,
+    type: 2}
+  ShootingVisor: {fileID: 1589128195192108, guid: 5f5826fa476f1154ca61c3ab3c42965a,
+    type: 2}
   BulletPrefab: {fileID: 4206107812543594, guid: c629e227c71949e47be85875c7207a61,
     type: 2}
-  ShootDelay: 0.1
+  ShootDelay: 0.3
   IsShooting: 0
 --- !u!114 &114206118173621006
 MonoBehaviour:
@@ -470,7 +470,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -646490704
+  randomSeed: 1447479777
   InitialModule:
     serializedVersion: 3
     enabled: 1

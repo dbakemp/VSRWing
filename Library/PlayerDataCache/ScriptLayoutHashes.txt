@@ -113,10 +113,10 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 34623969c5d0a85800cf7c17242e1e8b Assembly-CSharp.dll:TerrainGenerator.TerrainChunkGenerator
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.BulletBehaviour
 c0be0b3ea4cd7b22375a97ba59efff8f Assembly-CSharp.dll:.BulletEmitter
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.EnemyPlaneGenerator
+2866ff3d8fa41fe9a8bda91ba0b59d8f Assembly-CSharp.dll:.EnemyPlaneGenerator
 ea547dae556548875edb884106d69581 Assembly-CSharp.dll:Codexus.PixelEffect
-918355c5ed8564a6648a7d8bdcd0074f Assembly-CSharp.dll:.EnemyPlane
-faa5caf23216df6e7f1529aeaa834982 Assembly-CSharp.dll:.GameController
+4f938cf1e630ab6e1fe87f6f5acc58b0 Assembly-CSharp.dll:.EnemyPlane
+038e996e038e36410596db337076486b Assembly-CSharp.dll:.GameController
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
 60b2bb652410a5867a5ab9a01cd38461 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkDiscovery
@@ -147,3 +147,4 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 db323b40be95e5360eda530a9d3c5966 Assembly-CSharp.dll:.Sky
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Menu

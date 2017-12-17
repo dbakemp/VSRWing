@@ -27,6 +27,7 @@ public class Plane : MonoBehaviour
             {
                 explode();
                 isDead = true;
+                GameObject.Find("Controller").GetComponent<GameController>().GameOver();
             }
         }
     }
@@ -78,7 +79,7 @@ public class Plane : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "BulletRed(Clone)")
+        if (collision.gameObject.name == "BulletYellow(Clone)")
         {
             Health -= 5;
             Destroy(collision.gameObject);
@@ -87,11 +88,10 @@ public class Plane : MonoBehaviour
 
     private void explode()
     {
-        /*if(!isDead)
+        if(!isDead)
         {
             PlaneListener.UseGravity();
             ParticleSystem.Play();
-            DestroyObject(gameObject, ParticleSystem.main.duration);
-        }*/
+        }
     }
 }
