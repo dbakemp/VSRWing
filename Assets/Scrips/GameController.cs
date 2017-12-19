@@ -17,11 +17,19 @@ public class GameController : MonoBehaviour
 
     public GameObject GameOverText;
     public GameObject ScoreText;
+    public GameObject LevelText;
+    public GameObject PowerupText;
 
     public int Score = 0;
 
     public float GameTime = 0;
     public int KillScore = 0;
+    public int KillsToLevel = 0;
+    public int Level = 1;
+
+    private float PowerupTimer = 0f;
+    private float PowerupTime = 30f;
+    public bool PowerupReady = false;
 
     void Start()
     {
@@ -35,6 +43,19 @@ public class GameController : MonoBehaviour
             GameTime += Time.deltaTime;
             Score = (int)Mathf.Floor(GameTime) * 10 + KillScore;
             ScoreText.GetComponent<Text>().text = "Score: " + Score.ToString();
+            LevelText.GetComponent<Text>().text = "Level: " + Level.ToString();
+
+            if (!PowerupReady)
+            {
+                PowerupText.SetActive(false);
+                PowerupTimer += Time.deltaTime;
+                if (PowerupTimer >= PowerupTime)
+                {
+                    PowerupReady = true;
+                    PowerupTimer = 0;
+                    PowerupText.SetActive(true);
+                }
+            }
         }
 
         if (Input.GetKey(KeyCode.Escape))
@@ -46,6 +67,12 @@ public class GameController : MonoBehaviour
     public void AddKill()
     {
         KillScore += 100;
+        KillsToLevel++;
+        if(KillsToLevel >= 10)
+        {
+            Level++;
+            KillsToLevel = 0;
+        }
     }
     
     public void CallMenuScene()
@@ -57,5 +84,6 @@ public class GameController : MonoBehaviour
     {
         GameOverBool = true;
         GameOverText.SetActive(true);
+        PowerupText.SetActive(false);
     }
 }

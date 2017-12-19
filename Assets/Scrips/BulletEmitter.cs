@@ -6,7 +6,9 @@ public class BulletEmitter : MonoBehaviour {
     public GameObject ClippingPlane;
     public GameObject ShootingVisor;
     public Transform BulletPrefab;
-    public float ShootDelay = 0.15f;
+    public float ShootDelay = 0.10f;
+    public float ShootDelayPowerup = 0.15f;
+    public float ShootDelayOriginal;
     private float timeLastBullet = 0;
     private List<Bullet> bullets = new List<Bullet>();
     public bool IsShooting = false;
@@ -21,6 +23,8 @@ public class BulletEmitter : MonoBehaviour {
         {
             ShootingVisor = GameObject.Find("PlayerPlane");
         }
+
+        ShootDelayOriginal = ShootDelay;
     }
 	
 	void Update () {
@@ -46,6 +50,16 @@ public class BulletEmitter : MonoBehaviour {
             }
         }
         timeLastBullet += Time.deltaTime;
+    }
+
+    public void PowerUp()
+    {
+        ShootDelay = ShootDelayPowerup;
+    }
+
+    public void PowerDown()
+    {
+        ShootDelay = ShootDelayOriginal;
     }
 }
 

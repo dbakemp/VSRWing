@@ -18,6 +18,7 @@ public class EnemyPlane : MonoBehaviour
     private Vector3 destinationOffset;
     public float MoveSpeed = 1.0f;
     public float MoveStep = 0.0f;
+
     public int Health
     {
         get
@@ -78,6 +79,8 @@ public class EnemyPlane : MonoBehaviour
     {
         if(!isDead)
         {
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.Play();
             Destroy(TurretA);
             GameObject.Find("Controller").GetComponent<GameController>().AddKill();
             EnemyPlaneListener.UseGravity();

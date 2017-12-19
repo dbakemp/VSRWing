@@ -11,8 +11,14 @@ public class Plane : MonoBehaviour
     public PlaneListener PlaneListener;
     public ParticleSystem ParticleSystem;
     public GameObject HealthBar;
+    public GameObject TurretA;
     private bool isDead = false;
     private int health = 100;
+
+    private bool Powerup = false;
+    private float PowerupTimer = 0f;
+    private float PowerupTime = 5f;
+
     public int Health
     {
         get
@@ -62,6 +68,17 @@ public class Plane : MonoBehaviour
             transform.position += addedVelocity;
 
             velocity = Vector3.zero;
+
+            if(Powerup)
+            {
+                PowerupTimer += Time.deltaTime;
+                if(PowerupTimer >= PowerupTime)
+                {
+                    Powerup = false;
+                    PowerupTimer = 0;
+                    TurretA.GetComponent<BulletEmitter>().PowerDown();
+                }
+            }
         }
     }
 
@@ -75,13 +92,20 @@ public class Plane : MonoBehaviour
         {
             velocity.x = Input.GetAxisRaw("Horizontal");
         }
+
+        if (Input.GetKey(KeyCode.Space) && GameObject.Find("Controller").GetComponent<GameController>().PowerupReady)
+        {
+            GameObject.Find("Controller").GetComponent<GameController>().PowerupReady = false;
+            TurretA.GetComponent<BulletEmitter>().PowerUp();
+            Powerup = true;
+        }
     }
 
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name == "BulletYellow(Clone)")
         {
-            Health -= 5;
+            Health -= 2;
             Destroy(collision.gameObject);
         }
     }

@@ -19,7 +19,14 @@ public class EnemyPlaneGenerator : MonoBehaviour {
         {
             GameObject plane = Instantiate(EnemyPlanePrefab);
             spawnTick = 0;
-            spawnDelay = Random.Range(1f, 3f);
+
+            float MaxSpawnDelay = 5f - (GameObject.Find("Controller").GetComponent<GameController>().Level/7);
+            if(MaxSpawnDelay < 1f)
+            {
+                MaxSpawnDelay = 1f;
+            }
+
+            spawnDelay = Random.Range(1f, MaxSpawnDelay);
             
         }
 
